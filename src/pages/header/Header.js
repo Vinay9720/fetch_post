@@ -27,18 +27,9 @@ function ResponsiveAppBar() {
   const dispatch = useDispatch();
   const homeClickHandler = (i) => {
     dispatch(Products_action());
-    {
       i === 0 && navigate("/");
-    }
-    {
       i === 1 && i !== 0 && i !== 2 && navigate("/products");
-    }
-    {
       i === 2 && i !== 0 && i !== 1 && navigate("/cart");
-    }
-    // i === 0 ? navigate("/") : navigate("/");
-    // i === 1 ? navigate("/products") : navigate("/");
-    // i === 2 ? navigate("/cart") : navigate("/");
   };
 
   const pages = ["Home", "Products", "Cart"];
