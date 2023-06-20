@@ -1,0 +1,34 @@
+.cart .image {
+  width: 65px;
+  height: 100px;
+}
+.cart .imagediv {
+  width: 100%;
+}
+.cart {
+  padding: 10px;
+  width: -moz-fit-content;
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.cartCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+  border: 1px solid rgba(0, 0, 0, 0.178);
+}
+.cart .footer {
+  width: 110%;
+  margin-top: 0px;
+  padding-left: 15px;
+}
+.cart .maincard {
+  display: flex;
+}
+.order {
+  display: flex;
+}
