@@ -1,25 +1,49 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
   selectedItems: [],
+  totalQuantity: 0,
 };
 
-export const cartReducer = (state = initialState, action) => {
-  const length = state.selectedItems.length;
-  console.log("length", length);
-  switch (action.type) {
-    case "ADD_TO_CART":
+const cartSlice = createSlice({
+  name: "cart",
+  initialState,
+  reducers: {
+    addToCart(state, action) {
       const existingItem = state.selectedItems.find(
         (item) => item.id === action.payload.id
       );
-      if (existingItem) {
-        return { ...state };
+      state.totalQuantity++;
+      if (!existingItem) {
+        state.selectedItems.push({
+          id: action.payload.id,
+          name: action.payload.wine,
+          image: action.payload.image,
+          price: +25,
+          madeIn: action.payload.location,
+          quantity: 1,
+        });
       } else {
-        return {
-          ...state,
-          selectedItems: [...state.selectedItems, action.payload],
-        };
+        existingItem.quantity = existingItem.quantity + 1;
+        existingItem.price = existingItem.price + +25;
       }
+    },
+    removeFromCart(state, action) {
+      const existingItem = state.selectedItems.find(
+        (item) => item.id === action.payload
+      );
 
-    default:
-      return state;
-  }
-};
+      if (existingItem.quantity === 1) {
+        state.selectedItems = state.selectedItems.filter(
+          (item) => item.id !== action.payload
+        );
+      } else {
+        existingItem.quantity = existingItem.quantity - 1;
+        existingItem.price = existingItem.price - +25;
+      }
+    },
+  },
+});
+
+export const { addToCart, removeFromCart } = cartSlice.actions;
+export default cartSlice;

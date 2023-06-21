@@ -1,12 +1,12 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { cartReducer } from "./reducers/cart.reducer";
-import products_api_reducer from "./reducers/Products_reducer";
-import thunk from "redux-thunk";
+import { combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+import productSlice from "./reducers/Products.reducer";
+import cartSlice from "./reducers/cart.reducer";
 
 const rootReducer = combineReducers({
-  cart: cartReducer,
-  products_api_data: products_api_reducer,
+  cart: cartSlice.reducer,
+  products: productSlice.reducer,
 });
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = configureStore({ reducer: rootReducer });
 
 export default store;

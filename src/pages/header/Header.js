@@ -12,36 +12,25 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import LiquorIcon from "@mui/icons-material/Liquor";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Products_action } from "../../store/actions/Products_action";
+import CustomizedBadges from "../../MaterialUi/IconBadge";
 
 function ResponsiveAppBar() {
-  // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const homeClickHandler = (i) => {
-    dispatch(Products_action());
     i === 0 && navigate("/");
     i === 1 && i !== 0 && i !== 2 && navigate("/products");
     i === 2 && i !== 0 && i !== 1 && navigate("/cart");
   };
 
   const pages = ["Home", "Products", "Cart"];
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -67,7 +56,7 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             >
-              Dengi Tagu
+              Vinatage Wines
             </Typography>
             <LiquorIcon
               sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
@@ -121,7 +110,13 @@ function ResponsiveAppBar() {
                     color: "inherit",
                     textDecoration: "none",
                   }}
-                  endIcon={i === 2 ? <AddShoppingCartIcon /> : null}
+                  endIcon={
+                    i === 2 ? (
+                      <Box>
+                        <CustomizedBadges />
+                      </Box>
+                    ) : null
+                  }
                 >
                   {page}
                 </Button>

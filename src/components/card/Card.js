@@ -1,9 +1,8 @@
 import "./Card.css";
 import BasicButtons from "../buttons/Custom.button";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../store/actions/cart.action";
-import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
+// import { addToCart } from "../../store/actions/cart.action";
+// import { useNavigate } from "react-router-dom";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
