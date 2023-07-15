@@ -8,17 +8,14 @@
 }
 .title {
   margin-bottom: 0px;
-  /* text-shadow: 0 0 3px #f5f0f0, 0 0 5px #f0f0f5; */
   font-weight: 400;
   font-size: x-large;
 }
 .desc {
   margin-top: 0px;
   font-weight: 300;
-  /* text-shadow: 0 0 3px #f5f0f0, 0 0 5px #f7f7f8; */
 }
 .image {
-  /* width: 100%; */
   border-radius: 15px;
   height: 230px;
   width: 100px;

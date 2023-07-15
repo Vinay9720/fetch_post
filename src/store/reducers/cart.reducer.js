@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   selectedItems: [],
-  totalQuantity: 0,
+  cartLimit: false,
 };
 
 const cartSlice = createSlice({
@@ -13,21 +13,28 @@ const cartSlice = createSlice({
       const existingItem = state.selectedItems.find(
         (item) => item.id === action.payload.id
       );
-      state.totalQuantity++;
+      console.log("payload", action.payload);
+
+      if (existingItem && existingItem.quantity === 5) {
+        state.cartLimit = true;
+        return;
+      }
+
       if (!existingItem) {
         state.selectedItems.push({
           id: action.payload.id,
-          name: action.payload.wine,
+          name: action.payload.winery,
           image: action.payload.image,
-          price: +25,
+          price: +action.payload.price,
           madeIn: action.payload.location,
           quantity: 1,
         });
       } else {
         existingItem.quantity = existingItem.quantity + 1;
-        existingItem.price = existingItem.price + +25;
+        // existingItem.price = existingItem.price + +action.payload.price;
       }
     },
+
     removeFromCart(state, action) {
       const existingItem = state.selectedItems.find(
         (item) => item.id === action.payload
@@ -39,11 +46,23 @@ const cartSlice = createSlice({
         );
       } else {
         existingItem.quantity = existingItem.quantity - 1;
-        existingItem.price = existingItem.price - +25;
+        // existingItem.price = existingItem.price - +25;
+      }
+    },
+    removeItemFromCart(state, action) {
+      const existingItem = state.selectedItems.find(
+        (item) => item.id === action.payload
+      );
+
+      if (existingItem.id === action.payload) {
+        state.selectedItems = state.selectedItems.filter(
+          (item) => item.id !== action.payload
+        );
       }
     },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, removeItemFromCart } =
+  cartSlice.actions;
 export default cartSlice;

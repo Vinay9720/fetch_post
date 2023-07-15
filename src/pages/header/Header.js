@@ -12,8 +12,10 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import LiquorIcon from "@mui/icons-material/Liquor";
-import { useNavigate } from "react-router-dom";
 import CustomizedBadges from "../../MaterialUi/IconBadge";
+import SearchInput from "../../UiVerse/SearchInput/SearchInput";
+import { useNavigate } from "react-router-dom";
+import TemporaryDrawer from "../../MaterialUi/Drawer";
 
 function ResponsiveAppBar() {
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -26,7 +28,7 @@ function ResponsiveAppBar() {
     i === 2 && i !== 0 && i !== 1 && navigate("/cart");
   };
 
-  const pages = ["Home", "Products", "Cart"];
+  const pages = ["Home", "Products", "Cart", "Login"];
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -41,6 +43,7 @@ function ResponsiveAppBar() {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
+            <TemporaryDrawer />
             <Typography
               variant="h6"
               noWrap
@@ -56,7 +59,7 @@ function ResponsiveAppBar() {
                 textDecoration: "none",
               }}
             >
-              Vinatage Wines
+              Vintage Wines
             </Typography>
             <LiquorIcon
               sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
@@ -65,24 +68,7 @@ function ResponsiveAppBar() {
               }}
             />
             <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              LOGO
-            </Typography>
+
             <Box
               sx={{
                 flexGrow: 1,
@@ -101,8 +87,7 @@ function ResponsiveAppBar() {
                   onClick={() => homeClickHandler(i)}
                   sx={{
                     my: 2,
-                    // color: "white",
-                    // display: "block",
+
                     display: "flex",
                     fontFamily: "monospace",
                     fontWeight: "bolder",

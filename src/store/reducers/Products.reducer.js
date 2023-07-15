@@ -12,7 +12,6 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     fetchApiActionLoading(state, action) {
-      console.log("my loading from reducer", action.payload);
       state.isLoading = action.payload;
     },
     fetchApiActionSuccess(state, action) {

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Card from "../../components/card/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/reducers/cart.reducer";
 import Box from "@mui/material/Box";
@@ -12,11 +11,15 @@ import {
   fetchApiActionError,
 } from "../../store/reducers/Products.reducer";
 import { useEffect } from "react";
-import SpinnerLoader from "../../UiVerse/SpinnerLoader/SpinnerLoader";
+import LoadingLoader from "../../UiVerse/LoadingLoader/LoadingLoader";
+import bgImage from "../../assests/bg image.jpg";
+import CustomCard from "../../UiVerse/CustomCard/CustomCard";
+import SearchInput from "../../UiVerse/SearchInput/SearchInput";
 
 function Products() {
   const data = useSelector((state) => state.products.data);
   const isLoadingStatus = useSelector((state) => state.products.isLoading);
+  const search = useSelector((state) => state.search.search);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,14 +35,17 @@ function Products() {
           dispatch(fetchApiActionError(status.ERROR));
           console.log("error from apicall", error);
         }
-      }, 1500);
+      }, 500);
     };
 
     dataFunction();
   }, []);
 
+  const filteredData = data.filter((el) =>
+    el.winery.toLowerCase().includes(search)
+  );
+
   const onClick = (i, item) => {
-    console.log("my i ", i, item);
     if (i === 0) {
       dispatch(addToCart(item));
     } else if (i === 1) {
@@ -49,27 +55,36 @@ function Products() {
   };
 
   return (
-    <>
+    <div style={styles.image}>
       {isLoadingStatus === status.LOADING && (
         <Box sx={{ marginLeft: "47%", marginTop: "20%" }}>
-          <SpinnerLoader />
+          <LoadingLoader />
         </Box>
       )}
-
+      <Box sx={{ margin: "30px 0 30px 6%" }}>
+        <SearchInput />
+      </Box>
       <div className="App">
-        {data.map((item) => (
-          <Card
+        {filteredData.map((item) => (
+          <CustomCard
             key={item.id}
             image={item.image}
             title={item.wine}
+            price={item.price}
             description={item.winery}
-            average={item.rating.reviews}
+            average={item.rating.average}
             onClick={(i) => onClick(i, item)}
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
 export default Products;
+
+const styles = {
+  image: {
+    background: `url(${bgImage})`,
+  },
+};
